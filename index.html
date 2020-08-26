@@ -1,0 +1,163 @@
+﻿<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+  <title>垃圾</title>
+  <link rel="icon" type="image/png" href="./assets/favicon.png">
+  <link rel="stylesheet" type="text/css" href="./index.css" />
+  <!-- <script async type="text/javascript"
+    src="https://webapi.amap.com/maps?v=1.4.15&key=115e3c40173863c929472457a9a4162d"></script> -->
+  <script async src="./lib/amap-cached.js"></script>
+  <script defer src="./lib/jquery-3.4.1.min.js"></script>
+  <script defer src="./pre.js"></script>
+  <script defer src="./assets/data/stations.js"></script>
+  <script defer src="./assets/data/slide-states.js"></script>
+  <script defer src="./assets/geojson/xz/road-buffer.js"></script>
+  <script defer src="./assets/geojson/xz/pond-buffer.js"></script>
+  <script defer src="./assets/geojson/xz/residential-buffer.js"></script>
+  <script defer src="./assets/geojson/xz/river-buffer.js"></script>
+  <script defer src="./assets/geojson/xz/bad-area.js"></script>
+  <script defer src="./assets/geojson/xz/pre-result.js"></script>
+  <script defer src="./assets/geojson/xz/result.js"></script>
+  <script defer src="./util.js"></script>
+  <script defer src="main.js"></script>
+</head>
+
+<body>
+  <header class="app-header">
+    <img src="./assets/favicon.png" alt="logo">
+    <h1>马脚坝辣鸡处理厂选址大法</h1>
+  </header>
+  <div id="content">
+    <div id="map-container" class="no-sidebar"></div>
+    <aside id="sidebar" class="hidden">
+      <img id="sidebar-toggler" class="icon-toggle-sidebar" src="./assets/icon/menu.png" alt="toggle sidebar" />
+      <div class="sidebar-content">
+        <h4 class="sidebar-title">选址图层</h4>
+        <form autocomplete="off">
+          <ul class="buffer-list">
+            <li><label><input id="stations" name="stations" type="checkbox"><img src="./assets/icon/marker.png"
+                  class="legend">垃圾收集点</label></li>
+            <li><label><input id="xz-road-buffer" name="roadBuffer" type="checkbox"><span
+                  class="legend"></span>道路缓冲区</label></li>
+            <li><label><input id="xz-pond-buffer" name="pondBuffer" type="checkbox"><span
+                  class="legend"></span>坑塘缓冲区</label></li>
+            <li><label><input id="xz-river-buffer" name="riverBuffer" type="checkbox"><span
+                  class="legend"></span>河流缓冲区</label></li>
+            <li><label><input id="xz-residential-buffer" name="residentialBuffer" type="checkbox"><span
+                  class="legend"></span>居民区缓冲区</label></li>
+            <li><label><input id="xz-bad-area" name="badArea" type="checkbox"><span class="legend"></span>不适宜区域</label>
+            </li>
+            <li><label><input id="xz-pre-result" name="preResult" type="checkbox"><span
+                  class="legend"></span>适宜备选区域</label>
+            </li>
+            <li><label><input id="xz-result" name="result" type="checkbox"><span class="legend"></span>适宜区域</label></li>
+          </ul>
+        </form>
+        <h4 class="sidebar-title">选址过程</h4>
+        <div class="xz-description-container">
+          <div id="xz-description-container">
+          </div>
+        </div>
+        <div class="xz-button-group">
+          <button id="xz-previous">上一步</button>
+          <button id="xz-next">下一步</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+
+  <textarea style="
+    padding: 16px;
+    text-indent: 0;
+    font-size: 16px;
+    position: absolute;
+    right: 10px;
+    top: 100px;
+  " cols="50" rows="20" onchange="_tempOnChange(event)">
+window._assets.data.slideStates = [
+// 随便改，语法就是JavaScript语法。改好后随便点一下地图就应用更改。可以点左下角的按钮切换看看效果。
+// 下面这个数组就是在定义动画的每一个帧。改对应的字段就可以改对应的效果。
+
+// 记得最后把这里的文本复制保存到文件。刷新就会丢失！
+
+
+// 一帧定义开始
+{
+// 这里反引号里写显示在左下角的文字。可以直接换行。
+description: `
+通过马角坝实习我们了解到，我国农村环境保护现状存在问题。经济社会在不断发展，居民对垃圾的不恰当处理，也使得良好的生态环境日益遭到破坏。因此，在农村环境综合整治的背景下，农村生活垃圾收集点选址规划和研究具有重大意义。
+轻击下一步，让我们一起手把手为环境保护做出贡献。
+`,
+// 这里控制是否显示某个图层。看左边的图层列表啦，顺序一样的，用true和false控制就行啦，为false的可以不写。注意逗号别给删了
+visibility: {
+  stations: true,           //垃圾收集点
+  roadBuffer: false,        //道路缓冲区
+  pondBuffer: false,        //坑塘缓冲区
+  riverBuffer: false,       //河流缓冲区
+  residentialBuffer: false, //居民地缓冲区
+  badArea: false,           //不适宜
+  preResult: false,         //适宜备选
+  result: false,            //适宜区域
+},
+// 这一帧的缩放级别，可以省略
+  zoomLevel: 13,
+// 跳到这一帧时地图中心会飞到这里，可以省略
+  center: [105.075109, 32.087925],
+},
+// 第一帧结束
+
+
+
+
+
+  {
+    description: `
+    瞧！这是我们小组采集到的马脚镇现存垃圾收集点的分布情况。
+    试试点击地图上的小图标！
+    `,
+    visibility: { stations: true },
+    zoomLevel: 14,
+    center: [105.076225, 32.095197],
+  },
+
+
+
+  {
+    description: `
+    接下来我们对道路进行矢量化，并为它们建立缓冲区。注意，还要将道路本身从缓冲区中擦除！为什么？垃圾站不能建在道路中央。
+    让我们继续下一步。
+    `,
+    visibility: { stations: true, roadBuffer: true },
+    zoomLevel: 14,
+    center: [105.075109, 32.087925],
+  },
+
+
+
+  {
+    description: `
+    嘻嘻下一步我还没想好。
+    `,
+    visibility: {},
+  },
+
+
+
+  {
+    description: `大功告成！我们选出了可以建垃圾收集处理站的地方！`,
+    visibility: { result: true },
+    zoomLevel: 15,
+    center: [105.066311, 32.079889]
+  }
+]
+  </textarea>
+
+
+</body>
+
+</html>
