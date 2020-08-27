@@ -23,7 +23,6 @@
       // 在图面添加比例尺控件，展示地图在当前层级和纬度下的比例尺
       map.addControl(new AMap.Scale());
     });
-    map.on('moveend', ev => { console.log(map.getCenter()) })
     // 侧边栏控制
     $('#sidebar-toggler').on('click', function () {
       util.toggleSidebar();

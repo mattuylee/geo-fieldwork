@@ -158,7 +158,7 @@
           ...geoJsonOptions,
           fillColor: 'grey',
           strokeColor: 'transparent',
-          fillOpacity: 0.5,
+          fillOpacity: 0.3,
           zIndex: 0
         });
       }
