@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
-  <title>垃圾</title>
+  <title>马脚坝垃圾处理点选址</title>
   <link rel="icon" type="image/png" href="./assets/favicon.png">
   <link rel="stylesheet" type="text/css" href="./index.css" />
   <script async src="./lib/amap-cached.js"></script>
@@ -19,6 +19,7 @@
   <script defer src="./assets/geojson/xz/river-buffer.js"></script>
   <script defer src="./assets/geojson/xz/bad-area.js"></script>
   <script defer src="./assets/geojson/xz/pre-result.js"></script>
+  <script defer src="./assets/geojson/xz/result-points.js"></script>
   <script defer src="./assets/geojson/xz/result.js"></script>
   <script defer src="./util.js"></script>
   <script defer src="main.js"></script>
@@ -27,7 +28,7 @@
 <body>
   <header class="app-header">
     <img src="./assets/favicon.png" alt="logo">
-    <h1>马脚坝辣鸡处理厂选址大法</h1>
+    <h2>马脚坝垃圾处理点选址</h2>
   </header>
   <div id="content">
     <div id="map-container" class="no-sidebar"></div>
@@ -38,7 +39,7 @@
         <form autocomplete="off">
           <ul class="buffer-list">
             <li><label><input id="stations" name="stations" type="checkbox"><img src="./assets/icon/marker.png"
-                  class="legend">垃圾收集点</label></li>
+                  class="legend">现存处理点</label></li>
             <li><label><input id="xz-road-buffer" name="roadBuffer" type="checkbox"><span
                   class="legend"></span>道路缓冲区</label></li>
             <li><label><input id="xz-pond-buffer" name="pondBuffer" type="checkbox"><span
@@ -53,6 +54,8 @@
                   class="legend"></span>适宜备选区域</label>
             </li>
             <li><label><input id="xz-result" name="result" type="checkbox"><span class="legend"></span>适宜区域</label></li>
+            <li><label><input id="xz-result-points" name="resultPoints" type="checkbox"><img src="./assets/icon/marker-red.png"
+              class="legend">选址结果</label></li>
           </ul>
         </form>
         <h4 class="sidebar-title">选址过程</h4>

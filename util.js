@@ -45,7 +45,9 @@
           // 备选区
           preResult: loadPreResult(),
           // 适宜区域
-          result: loadResult()
+          result: loadResult(),
+          // 选址结果
+          resultPoints: loadResultPoints()
         }
       }
     }
@@ -190,6 +192,22 @@
           fillColor: 'lightgreen',
           strokeColor: 'lightgreen',
           zIndex: 5
+        });
+      }
+    });
+  }
+  // 选址结果（点）
+  function loadResultPoints() {
+    return new AMap.GeoJSON({
+      geoJSON: assets.geoJson.xz_resultPoints,
+      getMarker: function (geojson, lnglat) {
+        return new AMap.Marker({
+          title: "新增处理点",
+          position: lnglat,
+          icon: new AMap.Icon({
+            size: new AMap.Size(19, 28),
+            image: 'assets/icon/marker-red.png',
+          })
         });
       }
     });
